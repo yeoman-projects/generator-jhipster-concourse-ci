@@ -1,0 +1,10 @@
+{
+  "generator-jhipster-module": {
+    "promptValues": {
+      "githubName": "anoop2811",
+      "authorName": "Anoop Gopalakrishnan",
+      "authorEmail": "anoop2811@aol.in",
+      "authorUrl": "www.github.com/anoop2811"
+    }
+  }
+}

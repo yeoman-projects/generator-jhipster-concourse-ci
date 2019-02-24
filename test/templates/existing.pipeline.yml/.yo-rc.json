@@ -1,0 +1,40 @@
+{
+    "generator-jhipster": {
+        "promptValues": {
+            "packageName": "org.anoop.sample.jhipster",
+            "nativeLanguage": "en"
+        },
+        "jhipsterVersion": "5.0.0",
+        "baseName": "SampleJHipster",
+        "packageName": "org.anoop.sample.jhipster",
+        "packageFolder": "org/anoop/sample/jhipster",
+        "serverPort": "8080",
+        "authenticationType": "jwt",
+        "hibernateCache": "ehcache",
+        "clusteredHttpSession": false,
+        "websocket": false,
+        "databaseType": "sql",
+        "devDatabaseType": "h2Disk",
+        "prodDatabaseType": "mysql",
+        "searchEngine": false,
+        "messageBroker": false,
+        "serviceDiscoveryType": false,
+        "buildTool": "maven",
+        "enableSocialSignIn": false,
+        "enableSwaggerCodegen": true,
+        "jwtSecretKey": "4119b6776018844c73a4647a897df4a5c73fc6a8",
+        "clientFramework": "angularX",
+        "useSass": false,
+        "clientPackageManager": "yarn",
+        "applicationType": "monolith",
+        "testFrameworks": [
+            "protractor"
+        ],
+        "jhiPrefix": "jhi",
+        "enableTranslation": true,
+        "nativeLanguage": "en",
+        "languages": [
+            "en"
+        ]
+    }
+}
