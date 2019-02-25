@@ -1,6 +1,6 @@
 {
   "name": "generator-jhipster-concourse-ci",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Generates concourse pipelines for a JHipster project",
   "keywords": [
     "yeoman-generator",
@@ -54,6 +54,6 @@
   },
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/anoop2811/generator-jhipster-generator-jhipster-concourse-ci/issues"
+    "url": "https://github.com/anoop2811/generator-jhipster-concourse-ci/issues"
   }
 }
