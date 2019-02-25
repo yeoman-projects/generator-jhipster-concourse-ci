@@ -18,8 +18,8 @@ deploy:
     email: anoop2811@aol.in
     skip_cleanup: true
     api_key: $API_TOKEN
-    on:
-        tags: true
+#    on:
+#        tags: true
 
 notifications:
     email:
