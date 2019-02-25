@@ -4,8 +4,6 @@ const path = require('path');
 const fse = require('fs-extra');
 const assert = require('yeoman-assert');
 const helpers = require('yeoman-test');
-const chaiAssert = require('chai').assert;
-
 
 describe('JHipster generator generator-jhipster-concourse-ci', () => {
     describe('happy path', () => {
@@ -17,6 +15,10 @@ describe('JHipster generator generator-jhipster-concourse-ci', () => {
                 })
                 .withOptions({
                     testmode: true
+                })
+                .withPrompts({
+                    applicationGitBaseUrl: 'http://github',
+                    cicdIntegrations: [],
                 })
                 .on('end', done);
         });
@@ -30,24 +32,15 @@ describe('JHipster generator generator-jhipster-concourse-ci', () => {
         });
     });
 
-    describe('missing .yo-rc.json', () => {
-        it('throw error and recommend to run yarn manually', (done) => {
-            helpers
-                .run(path.join(__dirname, '../generators/app'))
-                .inTmpDir((dir) => {
-                    fse.copySync(path.join(__dirname, '../test/templates/missing.yo-rc.json'), dir);
-                })
-                .on('error', (err) => {
-                    chaiAssert.include(err.message, 'Missing .yo-rc.json');
-                    done();
-                });
-        });
-    });
-
     describe('already exist', () => {
         beforeEach(() => {
             this.concourseci = helpers
                 .run(path.join(__dirname, '../generators/app'))
+                .withPrompts({
+                    applicationGitBaseUrl: 'http://github',
+                    cicdIntegrations: []
+                })
+
                 .inTmpDir((dir) => {
                     fse.copySync(path.join(__dirname, '../test/templates/existing.pipeline.yml'), dir);
                 });
@@ -56,7 +49,12 @@ describe('JHipster generator generator-jhipster-concourse-ci', () => {
         describe('user choose to override existing files', () => {
             beforeEach((done) => {
                 this.concourseci
-                    .withPrompts({ overridePipeline: true, overrideTask: true })
+                    .withPrompts({
+                        overridePipeline: true,
+                        overrideTask: true,
+                        applicationGitBaseUrl: 'http://github',
+                        cicdIntegrations: []
+                    })
                     .on('end', done);
             });
 

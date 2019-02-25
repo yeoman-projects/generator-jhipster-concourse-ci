@@ -5,13 +5,15 @@
   "keywords": [
     "yeoman-generator",
     "jhipster-module",
-    "jhipster-5"
+    "jhipster-5",
+    "concourse",
+    "concourseci"
   ],
   "homepage": "https://github.com/anoop2811/generator-jhipster-generator-jhipster-concourse-ci",
   "author": {
     "name": "Anoop Gopalakrishnan",
     "email": "anoop2811@aol.in",
-    "url": "www.github.com/anoop2811"
+    "url": "http://github.com/anoop2811"
   },
   "files": [
     "generators"
@@ -22,7 +24,6 @@
     "url": "git+https://github.com/anoop2811/generator-jhipster-generator-jhipster-concourse-ci.git"
   },
   "dependencies": {
-    "chai": "^4.2.0",
     "chalk": "2.4.1",
     "generator-jhipster": ">=5.0.0",
     "mkdirp": "0.5.1",
@@ -31,11 +32,13 @@
     "yeoman-generator": "3.1.1"
   },
   "devDependencies": {
+    "chai": "^4.2.0",
     "eslint": "5.1.0",
     "eslint-config-airbnb-base": "13.0.0",
     "eslint-plugin-import": "^2.16.0",
     "fs-extra": "6.0.1",
     "mocha": "5.2.0",
+    "nyc": "^13.3.0",
     "yeoman-assert": "3.1.1",
     "yeoman-test": "2.0.0"
   },
