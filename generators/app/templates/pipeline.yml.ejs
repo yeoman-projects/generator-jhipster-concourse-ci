@@ -88,8 +88,9 @@ jobs:
     trigger: true
     passed: [unit-test,integration-test]
   - put: <%= baseName.toLowerCase() %>-version
-    params: {file: version/number}
-    params: {bump: patch}
+    params:
+      file: version/number
+      bump: patch
     <%_ if (cicdIntegrations.includes('slack')) { _%>
     on_failure:
       put: notify
@@ -107,47 +108,47 @@ jobs:
 <% } _%>
   - get: <%= baseName.toLowerCase() %>-git
     trigger: true
-    <%_ if (cicdIntegrations.includes('semver')) { _%>
+<%_ if (cicdIntegrations.includes('semver')) { _%>
     passed: [bump-version]
-    <% } _%>
+<% } _%>
   - task: gradle-build-task
     file: <%= baseName %>/ci/task/gradle-build-task.yml
     params:
       GRADLE_ARGS: build -x test
-    <%_ if (cicdIntegrations.includes('slack')) { _%>
+<%_ if (cicdIntegrations.includes('slack')) { _%>
     on_failure:
       put: notify
       params:
         text: "Job 'build - task:gradle-build-task' failed"
-     <% } _%>
+<% } _%>
   - put: <%= baseName.toLowerCase() %>-image
     params:
       build: <%= baseName.toLowerCase() %>-build
       tag_file: <%= baseName.toLowerCase() %>-version-output/number
-    <%_ if (cicdIntegrations.includes('slack')) { _%>
+<%_ if (cicdIntegrations.includes('slack')) { _%>
     on_failure:
       put: notify
       params:
         text: "Job 'build - put:<%= baseName.toLowerCase() %>-image' failed"
-     <% } _%>
+<% } _%>
 - name: deploy-staging
   plan:
-  <%_ if (cicdIntegrations.includes('semver')) { _%>
+<%_ if (cicdIntegrations.includes('semver')) { _%>
   - get: <%= baseName.toLowerCase() %>-version
     trigger: true
     passed: [build]
-  <% } _%>
+<% } _%>
   - get: <%= baseName.toLowerCase() %>-git
     trigger: true
     passed: [build]
   - task: deploy-task
     file: <%= baseName %>/ci/task/deploy-task.yml
-    <%_ if (cicdIntegrations.includes('slack')) { _%>
+<%_ if (cicdIntegrations.includes('slack')) { _%>
     on_failure:
       put: notify
       params:
         text: "Job 'deploy-staging' failed"
-     <% } _%>
+<% } _%>
 
 <%_ if (cicdIntegrations.includes('acceptanceTest')) { _%>
 - name: acceptance-test
@@ -160,10 +161,10 @@ jobs:
       passed: [deploy-staging]
   - task: karate-test-task
     file: <%= baseName.toLowerCase() %>/ci/task/karate-gradle-test-task.yml
-    <%_ if (cicdIntegrations.includes('slack')) { _%>
+<%_ if (cicdIntegrations.includes('slack')) { _%>
     on_failure:
       put: notify
       params:
         text: "Job 'acceptance-test' failed"
-      <% } _%>
- <% } _%>
+<% } _%>
+<% } _%>
