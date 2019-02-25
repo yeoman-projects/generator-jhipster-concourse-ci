@@ -1,5 +1,5 @@
 {
-  "name": "generator-jhipster-generator-jhipster-concourse-ci",
+  "name": "generator-jhipster-concourse-ci",
   "version": "0.0.0",
   "description": "Generates concourse pipelines for a JHipster project",
   "keywords": [
