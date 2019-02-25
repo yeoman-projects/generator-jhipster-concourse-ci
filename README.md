@@ -4,7 +4,7 @@
 
 # Introduction
 
-This is a [JHipster](http://jhipster.github.io/) module, that is meant to be used in a JHipster application.
+This is a [JHipster](http://jhipster.github.io/) module, that is meant to be used in a JHipster application to generate [concourse ci](https://concourse-ci.org/) configuration files.
 
 # Prerequisites
 
@@ -43,6 +43,12 @@ npm update -g generator-jhipster-concourse-ci
 ```
 
 # Usage
+
+To generate the concourse ci pipeline and tasks for current JHipster project, just run the following command from the project folder
+
+```bash
+yo jhipster-concourse-ci
+```
 
 # License
 
