@@ -13,3 +13,17 @@ install:
     - yarn link
 script:
     - yarn test
+deploy:
+    provider: npm
+    email: anoop2811@aol.in
+    skip_cleanup: true
+    api_key: $API_TOKEN
+    on:
+        tags: true
+
+notifications:
+    email:
+        recipients:
+        - anoop2811@aol.in
+        on_success: change
+        on_failure: always
