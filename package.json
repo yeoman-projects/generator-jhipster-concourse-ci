@@ -3,9 +3,6 @@
   "version": "0.0.1",
   "description": "Generates concourse pipelines for a JHipster project",
   "keywords": [
-    "yeoman-generator",
-    "jhipster-module",
-    "jhipster-5",
     "concourse",
     "concourseci"
   ],
