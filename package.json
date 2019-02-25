@@ -9,7 +9,7 @@
     "concourse",
     "concourseci"
   ],
-  "homepage": "https://github.com/anoop2811/generator-jhipster-generator-jhipster-concourse-ci",
+  "homepage": "https://github.com/anoop2811/generator-jhipster-concourse-ci",
   "author": {
     "name": "Anoop Gopalakrishnan",
     "email": "anoop2811@aol.in",
@@ -21,7 +21,7 @@
   "main": "generators/app/index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/anoop2811/generator-jhipster-generator-jhipster-concourse-ci.git"
+    "url": "git+https://github.com/anoop2811/generator-jhipster-concourse-ci.git"
   },
   "dependencies": {
     "chalk": "2.4.1",
