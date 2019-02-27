@@ -109,16 +109,9 @@ jobs:
     passed: [unit-test,integration-test]
 <% } _%>
   - put: <%= baseName.toLowerCase() %>-version
-<<<<<<< HEAD
-    params:
-      file: version/number
-      bump: patch
-    <%_ if (cicdIntegrations.includes('slack')) { _%>
-=======
     params: {file: version/number}
     params: {bump: patch}
 <%_ if (cicdIntegrations.includes('slack')) { _%>
->>>>>>> Corrected test task templates
     on_failure:
       put: notify
       params:
@@ -175,7 +168,7 @@ jobs:
     passed: [build]
   - task: deploy-task
     file: <%= baseName %>/ci/concourse/tasks/deploy-task.yml
-    <%_ if (cicdIntegrations.includes('slack')) { _%>
+<%_ if (cicdIntegrations.includes('slack')) { _%>
     on_failure:
       put: notify
       params:
