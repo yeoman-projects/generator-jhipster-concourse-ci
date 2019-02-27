@@ -16,6 +16,7 @@ module.exports = class extends BaseGenerator {
             readConfig() {
                 this.jhipsterAppConfig = this.getJhipsterAppConfig();
                 this.baseName = this.jhipsterAppConfig.baseName;
+                this.applicationType = this.jhipsterAppConfig.applicationType;
                 if (!this.jhipsterAppConfig) {
                     this.error('Missing .yo-rc.json or not a valid JHipster per data inside the .yo-rc.json.');
                 }
@@ -26,7 +27,7 @@ module.exports = class extends BaseGenerator {
                 this.printJHipsterLogo();
 
                 // Have Yeoman greet the user.
-                this.log(`\nWelcome to the ${chalk.bold.yellow('JHipster concourse ci')} generator! ${chalk.yellow(`v${packagejs.version}\n`)}`);
+                this.log(`\nWelcome to the ${chalk.bold.yellow('JHipster Concourse CI')} generator! ${chalk.yellow(`v${packagejs.version}\n`)}`);
             },
             checkJhipster() {
                 const currentJhipsterVersion = this.jhipsterAppConfig.jhipsterVersion;
@@ -148,10 +149,11 @@ module.exports = class extends BaseGenerator {
         const done = this.async();
         this.prompt(prompts).then((props) => {
             this.props = props;
+            this.applicationGitBaseUrl = props.applicationGitBaseUrl;
             this.cicdIntegrations = props.cicdIntegrations;
             this.sonarName = props.sonarName;
             this.sonarUrl = props.sonarUrl;
-            this.sonarOrga = props.sonarOrga;
+            this.sonarOrga = props.sonarOrg;
 
             this.publishDocker = props.publishDocker;
             this.dockerRegistryURL = props.dockerRegistryURL;

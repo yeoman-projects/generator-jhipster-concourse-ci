@@ -1,3 +1,5 @@
+#!/bin/bash
 set -eux
-
-gradle
+pushd <%= baseName.toLowerCase() %>-git
+./gradlew ${GRADLE_ARGS}
+popd
