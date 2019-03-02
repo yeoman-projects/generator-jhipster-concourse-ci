@@ -13,15 +13,13 @@ install:
     - yarn link
 script:
     - yarn test
-    - npm version patch -m "Bumping to %s"
-    - git push --tags
 deploy:
     provider: npm
     email: anoop2811@aol.in
     skip_cleanup: true
     api_key: $API_TOKEN
-#    on:
-#        tags: true
+    on:
+      tags: true
 
 notifications:
     email:
