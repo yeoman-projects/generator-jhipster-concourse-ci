@@ -1,0 +1,2 @@
+npm version patch -m "Bumping to %s"
+git push origin master
