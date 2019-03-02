@@ -13,6 +13,8 @@ install:
     - yarn link
 script:
     - yarn test
+    - npm version patch -m "Bumping to %s"
+    - git push --tags
 deploy:
     provider: npm
     email: anoop2811@aol.in
