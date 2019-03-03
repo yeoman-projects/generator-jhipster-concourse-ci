@@ -73,7 +73,7 @@ jobs:
   - task: gradle-test-task
     file: <%= baseName %>-git/ci/concourse/tasks/gradle-task.yml
     params:
-      GRADLE_ARGS: clean yarn test
+      GRADLE_ARGS: clean yarn_install yarn_test
 <%_ if (cicdIntegrations.includes('slack')) { _%>
     on_failure:
       put: notify

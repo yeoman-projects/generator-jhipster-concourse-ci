@@ -3,8 +3,9 @@ platform: linux
 
 image_resource:
   type: docker-image
-  source: {repository: picoded/ubuntu-openjdk-8-jdk}
-
+  source:
+    repository: jhipster/jhipster
+    tag: v5.8.1
 inputs:
 - name: <%= baseName.toLowerCase() %>-git
 
@@ -12,6 +13,7 @@ outputs:
 - name: <%= baseName.toLowerCase() %>-build
 
 run:
+  user: root
   path: <%= baseName.toLowerCase() %>-git/ci/concourse/tasks/gradle-task.sh
 
 params:
