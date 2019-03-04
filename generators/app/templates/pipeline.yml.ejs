@@ -1,10 +1,19 @@
 ---
-<%_ if (cicdIntegrations.includes('slack')) { _%>
+<%_ if (cicdIntegrations.includes('slack') ||cicdIntegrations.includes('sonar')) { _%>
 resource_types:
+<%_ if (cicdIntegrations.includes('slack')) { _%>
 - name: slack-notification
   type: docker-image
   source:
     repository: cfcommunity/slack-notification-resource
+<% } _%>
+<%_ if (cicdIntegrations.includes('sonar')) { _%>
+- name: sonar-runner
+  type: docker-image
+  source:
+    repository: cathive/concourse-sonarqube-resource
+    tag: latest # For reproducible builds use a specific tag and don't rely on "latest".
+<% } _%>
 <% } _%>
 
 resources:
@@ -23,7 +32,6 @@ resources:
     branch: master
     private_key: ((GIT_SSH_KEY.private_key))
 <% } _%>
-
 <%_ if (cicdIntegrations.includes('semver')) { _%>
 - name: version
   type: semver
@@ -34,19 +42,28 @@ resources:
     access_key_id:     ((AWS_ACCESS_KEY))
     secret_access_key: ((AWS_SECRET_ACCESS_KEY))
 <% } _%>
-
+<%_ if (cicdIntegrations.includes('publishDocker')) { _%>
 - name: <%= baseName.toLowerCase() %>-image
   type: docker-image
   source:
-    aws_access_key_id: ((AWS_ACCESS_KEY))
-    aws_secret_access_key: ((AWS_SECRET_ACCESS_KEY))
-    repository: <%= dockerRegistryURL %>/<%= dockerRegistryOrganizationName %>
+    username: <%= dockerRegistryOrganizationName %>
+    password: ((DOCKER_REGISTRY_CRED))
+    repository: <%= dockerRegistryURL %>
+<% } _%>
 
 <%_ if (cicdIntegrations.includes('slack')) { _%>
 - name: notify
   type: slack-notification
   source:
     url: ((SLACK_WEBHOOK))
+<% } _%>
+<%_ if (cicdIntegrations.includes('sonar')) { _%>
+- name: code-analysis
+  type: sonar-runner
+  source:
+    host_url: <%= sonar_url _%>
+    login: ((sonarqube-auth-token))
+    project_key: com.example.my_project
 <% } _%>
 
 jobs:
@@ -139,7 +156,7 @@ jobs:
   - task: gradle-build-task
     file: <%= baseName %>-git/ci/concourse/tasks/gradle-task.yml
     params:
-      GRADLE_ARGS: build -x test
+      GRADLE_ARGS: clean bootWar -x test
 <%_ if (cicdIntegrations.includes('slack')) { _%>
     on_failure:
       put: notify
@@ -149,13 +166,17 @@ jobs:
   - put: <%= baseName.toLowerCase() %>-image
     params:
       build: <%= baseName.toLowerCase() %>-build
+      tag_as_latest: true
+<%_ if (cicdIntegrations.includes('semver')) { _%>
       tag_file: <%= baseName.toLowerCase() %>-version-output/number
+<% } %>
 <%_ if (cicdIntegrations.includes('slack')) { _%>
     on_failure:
       put: notify
       params:
         text: "Job 'build - put:<%= baseName.toLowerCase() %>-image' failed"
 <% } _%>
+<%_ if (cicdIntegrations.includes('kubernetes')) { _%>
 - name: deploy-staging
   plan:
 <%_ if (cicdIntegrations.includes('semver')) { _%>
@@ -173,6 +194,7 @@ jobs:
       put: notify
       params:
         text: "Job 'deploy-staging' failed"
+<% } _%>
 <% } _%>
 
 <%_ if (cicdIntegrations.includes('acceptanceTest')) { _%>

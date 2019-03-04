@@ -65,6 +65,7 @@ module.exports = class extends BaseGenerator {
                 default: [],
                 choices: [
                     { name: `Analyze your code with ${chalk.yellow('*Sonar*')} (requires SONAR_TOKEN set in credhub service)`, value: 'sonar' },
+                    { name: 'Publish built docker image?', value: 'publishDocker' },
                     { name: `Deploy to ${chalk.yellow('*Kubernetes*')} for staging (requires KUBERNETES_TOKEN set in credhub service)`, value: 'kubernetes' },
                     { name: 'Run acceptance tests after deploy to staging?', value: 'acceptanceTest' },
                     { name: 'Do you want to include semver versioning ?', value: 'semver' },

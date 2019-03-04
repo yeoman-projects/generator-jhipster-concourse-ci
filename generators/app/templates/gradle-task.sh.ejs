@@ -2,4 +2,8 @@
 set -eux
 pushd <%= baseName.toLowerCase() %>-git
 ./gradlew ${GRADLE_ARGS}
+if [ -d build/libs ]; then
+  cp build/libs/*.war ../<%= baseName.toLowerCase() %>-build/app.war
+  cp src/main/docker/* ../<%= baseName.toLowerCase() %>-build/ 
+fi
 popd
